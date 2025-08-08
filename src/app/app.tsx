@@ -10,6 +10,14 @@ function App() {
     const isMobile = () => window.innerWidth < 768;
     const mobile = isMobile();
 
+    const getResponsiveValue = (mobileValue: number, desktopValue: number) => {
+      return mobile ? mobileValue : desktopValue;
+    };
+
+    const getViewportBasedValue = (percentage: number) => {
+      return window.innerHeight * (percentage / 100);
+    };
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: document.body,
@@ -25,8 +33,10 @@ function App() {
       ease: "none"
     }, 0);
 
-    tl.to('#hero-title', {
-      y: -400,
+    const heroTitleY = getViewportBasedValue(getResponsiveValue(15, 20));
+    const disappearHeroTitleY = getViewportBasedValue(getResponsiveValue(30, 35));
+    tl.fromTo('#hero-title', {opacity: 1, y: -heroTitleY}, {
+      y: -disappearHeroTitleY,
       opacity: 0,
       duration: 1,
       ease: "none"
@@ -45,8 +55,10 @@ function App() {
           const endTime = startTime + cardDuration;
           
           const duration = cardDuration * 0.3;
+          const cardY = getViewportBasedValue(8); 
+          
           tl.fromTo(card, 
-            { opacity: 0, y: 50 },
+            { opacity: 0, y: cardY },
             { 
               opacity: 1, 
               y: 0, 
@@ -60,7 +72,7 @@ function App() {
           tl.to(card, 
             { 
               opacity: 0, 
-              y: -50, 
+              y: -cardY, 
               duration: duration, 
               ease: "power2.in",
             },
@@ -70,8 +82,10 @@ function App() {
       } else {
         elements.forEach((card, index) => {
           const delay = index * 0.2;
+          const cardY = getViewportBasedValue(12); 
+          
           tl.fromTo(card,
-            { opacity: 0, y: 100 },
+            { opacity: 0, y: cardY },
             { 
               opacity: 1, 
               y: 0, 
@@ -91,23 +105,28 @@ function App() {
       if (mobile) {
         const lastCardEndTime = 0.67 + (1 / elements.length) * elements.length;
         
+        const disappearY = getViewportBasedValue(8);
         tl.to([...elements, heroCta], {
           opacity: 0,
-          y: -50,
+          y: -disappearY,
           duration: 0.3,
           ease: "power2.in",
         }, lastCardEndTime - 0.3);
 
-        tl.fromTo(heroWorksTitle, { opacity: 0, y: -100 }, {
+        const titleStartY = getViewportBasedValue(getResponsiveValue(15, 20));
+        const titleEndY = getViewportBasedValue(getResponsiveValue(25, 35));
+        
+        tl.fromTo(heroWorksTitle, { opacity: 0, y: -titleStartY }, {
           opacity: 1,
-          y: -150,
+          y: -titleEndY,
           duration: 0.3,
           ease: "power2.in",
         }, lastCardEndTime - 0.2);
 
-        tl.fromTo(heroWorksButtons, { opacity: 0, y: 200 }, {
+        const buttonsY = getViewportBasedValue(getResponsiveValue(10, 15));
+        tl.fromTo(heroWorksButtons, { opacity: 0, y: buttonsY }, {
           opacity: 1,
-          y: 10,
+          y: getViewportBasedValue(-4), 
           duration: 0.3,
           ease: "power2.in",
         }, lastCardEndTime - 0.2);
@@ -117,23 +136,28 @@ function App() {
         const lastCardDelay = (elements.length - 1) * 0.2;
         const disappearTime = 0.67 + lastCardDelay + 0.5;
         
+        const disappearY = getViewportBasedValue(8);
         tl.to([...elements, heroCta], {
           opacity: 0,
-          y: -50,
+          y: -disappearY,
           duration: 0.3,
           ease: "power2.in",
         }, disappearTime);
 
-        tl.fromTo(heroWorksTitle, { opacity: 0, y: -100 }, {
+        const titleStartY = getViewportBasedValue(20);
+        const titleEndY = getViewportBasedValue(28);
+        
+        tl.fromTo(heroWorksTitle, { opacity: 0, y: -titleStartY }, {
           opacity: 1,
-          y: -200,
+          y: -titleEndY,
           duration: 0.3,
           ease: "power2.in",
         }, disappearTime + 0.2);
 
-        tl.fromTo(heroWorksButtons, { opacity: 0, y: 200 }, {
+        const buttonsY = getViewportBasedValue(15);
+        tl.fromTo(heroWorksButtons, { opacity: 0, y: buttonsY }, {
           opacity: 1,
-          y: 70,
+          y: getViewportBasedValue(8),
           duration: 0.3,
           ease: "power2.in",
         }, disappearTime + 0.2);
