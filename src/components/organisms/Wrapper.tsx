@@ -7,8 +7,8 @@ import Navbar from "components/molecules/Navbar";
 
 const Wrapper = () => {
   return (
-    <div className="h-screen w-screen relative"	>
-      <div className="fixed inset-0 z-50">
+    <div className="h-screen w-screen relative">
+      <div className="fixed inset-0 z-50 pointer-events-auto">
         <Navbar/>
         <HeroCta/>
         <HeroText/>
