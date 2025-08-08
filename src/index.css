@@ -36,8 +36,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply leading-[normal] m-0;
+  overscroll-behavior: none;
+  overflow-x: hidden;
 }
 
 @layer base {
