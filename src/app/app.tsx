@@ -19,10 +19,12 @@ function App() {
             const progress = self.progress;
             const opacity = Math.max(0, 1 - progress);
 
-            const background = document.getElementById('hero-background');
+            const backgrounds = document.querySelectorAll('#hero-background');
             
-            if (background) {
-              background.style.opacity = opacity.toString();
+            if (backgrounds) {
+              backgrounds.forEach((background) => {
+                (background as HTMLElement).style.opacity = opacity.toString();
+              })
             }
             
             const heroTitle = document.getElementById('hero-title');
