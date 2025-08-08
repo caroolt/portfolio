@@ -18,7 +18,7 @@ const ScrollArrow = () => {
   }, []);
 
   return (
-    <div className="relative inline-block ">
+    <div className="relative inline-block overflow-hidden">
       <img 
         ref={circleRef}
         className="relative w-32 h-32" 
