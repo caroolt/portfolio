@@ -4,7 +4,7 @@ import Cards from "components/molecules/Cards";
 import HeroCta from "components/molecules/HeroCta";
 import HeroFooter from "components/molecules/HeroFooter";
 import Navbar from "components/molecules/Navbar";
-// import Works from "components/molecules/Works";
+import Works from "components/molecules/Works";
 
 const Wrapper = () => {
   return (
@@ -14,7 +14,7 @@ const Wrapper = () => {
         <HeroCta/>
         <HeroText/>
         <Cards/>
-        {/* <Works/> */}
+        <Works/>
         <HeroFooter/>
       </div>
     </div>

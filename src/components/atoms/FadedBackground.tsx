@@ -1,6 +1,6 @@
 const FadedBackground = () => {
   return (
-    <div className="fixed inset-0 z-10 h-screen w-screen flex flex-row overflow-hidden m-0 p-0 bg-purple-200">
+    <div className="fixed inset-0 z-1 h-screen w-screen flex flex-row overflow-hidden m-0 p-0 bg-purple-200">
       <div 
         className="h-[120vh] md:h-[140vh] w-1/2 m-0 border-0 p-0 mix-blend-color-dodge"
         style={{
