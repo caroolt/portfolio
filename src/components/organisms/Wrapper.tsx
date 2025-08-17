@@ -1,10 +1,9 @@
 
 import HeroText from "components/atoms/HeroText";
-import Cards from "components/molecules/Cards";
 import HeroCta from "components/molecules/HeroCta";
 import HeroFooter from "components/molecules/HeroFooter";
 import Navbar from "components/molecules/Navbar";
-import Works from "components/molecules/Works";
+import WorkWithMe from "components/molecules/WorkWithMe";
 
 const Wrapper = () => {
   return (
@@ -13,9 +12,8 @@ const Wrapper = () => {
         <Navbar/>
         <HeroCta/>
         <HeroText/>
-        <Cards/>
-        <Works/>
         <HeroFooter/>
+        <WorkWithMe/>
       </div>
     </div>
   );

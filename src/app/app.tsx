@@ -2,8 +2,9 @@ import Wrapper from "components/organisms/Wrapper";
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 function App() {
   useEffect(() => {
@@ -27,148 +28,180 @@ function App() {
       }
     });
 
-    tl.to('#hero-background', {
-      opacity: 0,
+
+
+    if(!mobile) {
+    
+      const heroTitleY = getViewportBasedValue(getResponsiveValue(20, 0));
+      const disappearHeroTitleY = getViewportBasedValue(getResponsiveValue(10, 35));
+      tl.fromTo('#hero-title', {opacity: 1, y: -heroTitleY}, {
+        y: -disappearHeroTitleY,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
+  
+      const heroCtaY = getViewportBasedValue(getResponsiveValue(20, 0));
+      const disappearHeroCTAY = getViewportBasedValue(getResponsiveValue(10, 35));
+      tl.fromTo('#hero-cta', {opacity: 1, y: -heroCtaY}, {
+        y: -disappearHeroCTAY,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
+  
+  
+      const NavbarLogoY = getViewportBasedValue(getResponsiveValue(20, 0));
+      const disappearNavbarLogoY = getViewportBasedValue(getResponsiveValue(10, 35));
+      tl.fromTo('#navbar-logo', {opacity: 1, y: -NavbarLogoY}, {
+        y: -disappearNavbarLogoY,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
+
+      const heroFooterY = getViewportBasedValue(getResponsiveValue(0, 0)); 
+      const disappearHeroFooterY = getViewportBasedValue(getResponsiveValue(-20, -25));
+      tl.fromTo('#hero-footer-desktop', {opacity: 1, y: heroFooterY}, {
+        y: disappearHeroFooterY,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
+      
+    const NavbarInfoX = getViewportBasedValue(getResponsiveValue(20, 0));
+    const NextNavbarInfoX = getViewportBasedValue(getResponsiveValue(10, 173));
+    tl.fromTo('#navbar-info', {opacity: 1, x: -NavbarInfoX}, {
+      x: -NextNavbarInfoX,
+      opacity: 1,
       duration: 1,
-      ease: "none"
-    }, 0);
+      backgroundColor: '',
+      ease: "sine.inOut"
+    }, 1);
 
-    const heroTitleY = getViewportBasedValue(getResponsiveValue(15, 20));
-    const disappearHeroTitleY = getViewportBasedValue(getResponsiveValue(30, 35));
-    tl.fromTo('#hero-title', {opacity: 1, y: -heroTitleY}, {
-      y: -disappearHeroTitleY,
-      opacity: 0,
-      duration: 1,
-      ease: "none"
-    }, 0);
-
-    const cardElementsMobile = document.querySelectorAll('.hero-cards-mobile');
-    const cardElementsDesktop = document.querySelectorAll('.hero-cards-desktop');
-    const elements = mobile ? cardElementsMobile : cardElementsDesktop;
-
-    if (elements.length > 0) {
-      if (mobile) {
-        const cardDuration = 1 / elements.length;
-        
-        elements.forEach((card, index) => {
-          const startTime = 0.67 + (index * cardDuration);
-          const endTime = startTime + cardDuration;
-          
-          const duration = cardDuration * 0.3;
-          const cardY = getViewportBasedValue(8); 
-          
-          tl.fromTo(card, 
-            { opacity: 0, y: cardY },
-            { 
-              opacity: 1, 
-              y: 0, 
-              duration: duration, 
-              ease: "power2.out",
-            },
-            startTime
-          );
-          
-          const fadeStart = endTime - duration;
-          tl.to(card, 
-            { 
-              opacity: 0, 
-              y: -cardY, 
-              duration: duration, 
-              ease: "power2.in",
-            },
-            fadeStart
-          );
-        });
-      } else {
-        elements.forEach((card, index) => {
-          const delay = index * 0.2;
-          const cardY = getViewportBasedValue(12); 
-          
-          tl.fromTo(card,
-            { opacity: 0, y: cardY },
-            { 
-              opacity: 1, 
-              y: 0, 
-              duration: 0.5, 
-              ease: "power2.out",
-            },
-            0.67 + delay
-          );
-        });
-      }
+    const workWithMeQuestion = document.getElementById('work-with-me-question');
+    const workWithMeAnswer = document.getElementById('work-with-me-answer');
+    
+    if (workWithMeQuestion && workWithMeAnswer) {
+      gsap.set('#work-with-me', {opacity: 0});
+      
+      const splitQuestion = new SplitText('#work-with-me-question', { type: "chars" });
+      const splitAnswer = new SplitText('#work-with-me-answer', { type: "chars" });
+      
+      gsap.set([splitQuestion.chars, splitAnswer.chars], { color: '#0f081e' });
+      
+      tl.to('#work-with-me', {
+        opacity: 1,
+        duration: 0.5,
+        ease: "sine.inOut"
+      }, 1);
+      
+      tl.to(splitQuestion.chars, {
+        color: 'rgba(201, 201, 201, 0.8)',
+        duration: 0.8,
+        stagger: 0.02,
+        ease: "none"
+      }, 1.5);
+      
+      tl.to(splitAnswer.chars, {
+        color: 'rgba(255, 255, 255, 0.8)',
+        duration: 1.5,
+        stagger: 0.02,
+        ease: "none"
+      }, 1.8);
     }
 
-    const heroCta = document.getElementById('hero-cta');
-    const heroWorksTitle = document.getElementById('hero-works-title');
-    const heroWorksButtons = document.getElementById('hero-works-buttons');
-    if (heroCta && heroWorksTitle && heroWorksButtons && elements.length > 0) {
-      if (mobile) {
-        const lastCardEndTime = 0.67 + (1 / elements.length) * elements.length;
-        
-        const disappearY = getViewportBasedValue(8);
-        tl.to([...elements, heroCta], {
-          opacity: 0,
-          y: -disappearY,
-          duration: 0.3,
-          ease: "power2.in",
-        }, lastCardEndTime - 0.3);
+    // Anima a imagem de fundo para aparecer junto com WorkWithMe (Desktop)
+    tl.to('#background-image', {
+      opacity: 0.5,
+      duration: 1,
+      ease: "sine.inOut"
+    }, 1);
 
-        const titleStartY = getViewportBasedValue(getResponsiveValue(15, 20));
-        const titleEndY = getViewportBasedValue(getResponsiveValue(25, 35));
-        
-        tl.fromTo(heroWorksTitle, { opacity: 0, y: -titleStartY }, {
-          opacity: 1,
-          y: -titleEndY,
-          duration: 0.3,
-          ease: "power2.in",
-        }, lastCardEndTime - 0.2);
-
-        const buttonsY = getViewportBasedValue(getResponsiveValue(10, 15));
-        tl.fromTo(heroWorksButtons, { opacity: 0, y: buttonsY }, {
-          opacity: 1,
-          y: getViewportBasedValue(-4), 
-          duration: 0.3,
-          ease: "power2.in",
-        }, lastCardEndTime - 0.2);
-        
-       
-      } else {
-        const lastCardDelay = (elements.length - 1) * 0.2;
-        const disappearTime = 0.67 + lastCardDelay + 0.5;
-        
-        const disappearY = getViewportBasedValue(8);
-        tl.to([...elements, heroCta], {
-          opacity: 0,
-          y: -disappearY,
-          duration: 0.3,
-          ease: "power2.in",
-        }, disappearTime);
-
-        const titleStartY = getViewportBasedValue(20);
-        const titleEndY = getViewportBasedValue(28);
-        
-        tl.fromTo(heroWorksTitle, { opacity: 0, y: -titleStartY }, {
-          opacity: 1,
-          y: -titleEndY,
-          duration: 0.3,
-          ease: "power2.in",
-        }, disappearTime + 0.2);
-
-        const buttonsY = getViewportBasedValue(15);
-        tl.fromTo(heroWorksButtons, { opacity: 0, y: buttonsY }, {
-          opacity: 1,
-          y: getViewportBasedValue(8),
-          duration: 0.3,
-          ease: "power2.in",
-        }, disappearTime + 0.2);
-      }
     } else {
-      console.error('❌ Elementos faltando:', {
-        heroCta: !!heroCta,
-        cards: elements.length
-      });
-    }
+      const heroTitleY = getViewportBasedValue(getResponsiveValue(10, 0));
+      const disappearHeroTitleY = getViewportBasedValue(getResponsiveValue(30, 0));
+      tl.fromTo('#hero-title', {opacity: 1, y: -heroTitleY}, {
+        y: -disappearHeroTitleY,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
+  
+      const heroCtaY = getViewportBasedValue(getResponsiveValue(2, 0));
+      const disappearHeroCTAY = getViewportBasedValue(getResponsiveValue(30, 35));
+      tl.fromTo('#hero-cta', {opacity: 1, y: -heroCtaY}, {
+        y: -disappearHeroCTAY,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
+  
+      const NavbarLogoY = getViewportBasedValue(getResponsiveValue(0, 0));
+      const disappearNavbarLogoY = getViewportBasedValue(getResponsiveValue(30, 35));
+      tl.fromTo('#navbar-logo', {opacity: 1, y: -NavbarLogoY}, {
+        y: -disappearNavbarLogoY,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
 
+      const heroFooterMobileY = getViewportBasedValue(getResponsiveValue(-5, 0)); 
+      const disappearHeroFooterMobileY = getViewportBasedValue(getResponsiveValue(-30, -25));
+      tl.fromTo('#hero-footer-mobile', {opacity: 1, y: heroFooterMobileY}, {
+        y: disappearHeroFooterMobileY,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
+
+      tl.fromTo('#hero-scroll-mobile', {opacity: 1, y: -32}, {
+        y: -100,
+        opacity: 0,
+        duration: 1,
+        ease: "none"
+      }, 0);
+   
+      const workWithMeQuestion = document.getElementById('work-with-me-question');
+      const workWithMeAnswer = document.getElementById('work-with-me-answer');
+      
+      if (workWithMeQuestion && workWithMeAnswer) {
+        gsap.set('#work-with-me', {opacity: 0});
+        
+        const splitQuestion = new SplitText('#work-with-me-question', { type: "chars" });
+        const splitAnswer = new SplitText('#work-with-me-answer', { type: "chars" });
+        
+        gsap.set([splitQuestion.chars, splitAnswer.chars], { color: '#0f081e' });
+        
+        tl.to('#work-with-me', {
+          opacity: 1,
+          duration: 0.5,
+          ease: "sine.inOut"
+        }, 1);
+        
+        tl.to(splitQuestion.chars, {
+          color: 'rgba(201, 201, 201, 0.8)',
+          duration: 1,
+          stagger: 0.03,
+          ease: "none"
+        }, 1.5);
+        
+        tl.to(splitAnswer.chars, {
+          color: 'rgba(255, 255, 255, 0.8)',
+          duration: 2,
+          stagger: 0.03,
+          ease: "none"
+        }, 1.8);
+      }
+
+      // Anima a imagem de fundo para aparecer junto com WorkWithMe (Mobile)
+      tl.to('#background-image', {
+        opacity: 0.5,
+        duration: 1,
+        ease: "sine.inOut"
+      }, 1);
+    }
+    
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };

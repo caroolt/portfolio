@@ -9,7 +9,7 @@ const ScrollArrow = () => {
       gsap.set(circleRef.current, { rotation: 0 });
       gsap.to(circleRef.current, {
         rotation: "+=360",
-        duration: 8,
+        duration: 15,
         ease: "none",
         repeat: -1,
         transformOrigin: "center center"

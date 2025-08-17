@@ -20,15 +20,12 @@ export const Button = ({
   const baseClasses = `
     relative
     rounded-[3.625rem]
-    w-full
     flex
     flex-row
     items-center
     justify-center
-    box-border
-    mix-blend-normal
     text-center
-    text-sm md:text-[0.94vw]
+    text-[3vw] md:text-[0.83vw]
     font-poppins
     active:scale-95
     transition-all
@@ -41,8 +38,12 @@ export const Button = ({
   const primaryClasses = `
     bg-gray-800
     text-purple-300
-    py-1.5
-    pl-5
+    w-[35vh] 
+    md:w-[42vh] 
+    py-0
+    pl-6 
+    md:pl-12 
+    pr-0
     pr-1.5
     gap-3
     hover:bg-opacity-95
