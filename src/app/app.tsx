@@ -111,7 +111,6 @@ function App() {
       }, 1.8);
     }
 
-    // Anima a imagem de fundo para aparecer junto com WorkWithMe (Desktop)
     tl.to('#background-image', {
       opacity: 0.5,
       duration: 1,
@@ -119,7 +118,7 @@ function App() {
     }, 1);
 
     } else {
-      const heroTitleY = getViewportBasedValue(getResponsiveValue(10, 0));
+      const heroTitleY = getViewportBasedValue(getResponsiveValue(3, 0));
       const disappearHeroTitleY = getViewportBasedValue(getResponsiveValue(30, 0));
       tl.fromTo('#hero-title', {opacity: 1, y: -heroTitleY}, {
         y: -disappearHeroTitleY,
@@ -128,7 +127,7 @@ function App() {
         ease: "none"
       }, 0);
   
-      const heroCtaY = getViewportBasedValue(getResponsiveValue(2, 0));
+      const heroCtaY = getViewportBasedValue(getResponsiveValue(-5, 0));
       const disappearHeroCTAY = getViewportBasedValue(getResponsiveValue(30, 35));
       tl.fromTo('#hero-cta', {opacity: 1, y: -heroCtaY}, {
         y: -disappearHeroCTAY,
@@ -146,7 +145,7 @@ function App() {
         ease: "none"
       }, 0);
 
-      const heroFooterMobileY = getViewportBasedValue(getResponsiveValue(-5, 0)); 
+      const heroFooterMobileY = getViewportBasedValue(getResponsiveValue(0, 0)); 
       const disappearHeroFooterMobileY = getViewportBasedValue(getResponsiveValue(-30, -25));
       tl.fromTo('#hero-footer-mobile', {opacity: 1, y: heroFooterMobileY}, {
         y: disappearHeroFooterMobileY,
@@ -155,7 +154,7 @@ function App() {
         ease: "none"
       }, 0);
 
-      tl.fromTo('#hero-scroll-mobile', {opacity: 1, y: -32}, {
+      tl.fromTo('#hero-scroll-mobile', {opacity: 1, y: 0}, {
         y: -100,
         opacity: 0,
         duration: 1,
@@ -194,7 +193,6 @@ function App() {
         }, 1.8);
       }
 
-      // Anima a imagem de fundo para aparecer junto com WorkWithMe (Mobile)
       tl.to('#background-image', {
         opacity: 0.5,
         duration: 1,
